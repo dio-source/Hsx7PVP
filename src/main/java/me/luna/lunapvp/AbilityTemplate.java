@@ -3,7 +3,7 @@ package me.luna.lunapvp;
 import org.bukkit.entity.Player;
 
 public class AbilityTemplate {
-    float cooldownTime = 0;
+    long cooldownTime = 0;
     Player player;
 
 
@@ -17,8 +17,9 @@ public class AbilityTemplate {
     }
 
     protected boolean checkCooldown(){
+
+        System.out.println(System.currentTimeMillis() - cooldownTime);
         if(System.currentTimeMillis() - cooldownTime > 10000){
-            System.out.println("TEST1111");
             return true;
         }
         return false;

@@ -12,7 +12,7 @@ public class Gravity extends AbilityTemplate{
         }
         player.teleport(player.getLocation().add(0,25,0));
         player.removePotionEffect(PotionEffectType.SLOW_FALLING);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 60, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 600, 1));
         cooldownTime = System.currentTimeMillis();
     }
 

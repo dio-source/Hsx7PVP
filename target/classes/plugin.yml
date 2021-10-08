@@ -10,3 +10,6 @@ commands:
   ability:
     usage: "Usage: /ability [Quirk]"
     description: Works for all players before game start
+  team:
+    usage: "Usage: /team [teamName]"
+    description: Works for all players before game start
