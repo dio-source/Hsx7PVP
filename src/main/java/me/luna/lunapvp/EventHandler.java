@@ -49,10 +49,10 @@ public class EventHandler implements Listener {
     }
     @org.bukkit.event.EventHandler
     public void onRightClick(PlayerInteractEvent e){
-        if(e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK){
+        if(e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK && isPVPAllowed){
             return;
         }
-        if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
+        if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK && isPVPAllowed){
             this.playerAbilityHashMap.get(e.getPlayer()).activatedAbility();
         }
     }

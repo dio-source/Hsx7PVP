@@ -81,9 +81,26 @@ public final class main extends JavaPlugin {
                     sender.sendMessage("You Have picked Warp");
                     return true;
                 }
+                else if(args[0].equalsIgnoreCase("Medusa")){
+                    Medusa medusaObject = new Medusa();
+                    medusaObject.player = (Player) sender;
+                    this.playerAbilityHashMap.put((Player) sender, medusaObject);
+                    medusaObject.plugin = this;
+                    sender.sendMessage("You Have picked Medusa");
+                    return true;
+                }
+                else if(args[0].equalsIgnoreCase("Miner")){
+                    Miner minerObject = new Miner();
+                    minerObject.player = (Player) sender;
+                    this.playerAbilityHashMap.put((Player) sender, minerObject);
+                    minerObject.plugin = this;
+                    sender.sendMessage("You Have picked Medusa");
+                    return true;
+                }
             }
             else if(label.equalsIgnoreCase("team") && args.length != 0){
                 this.playerTeamHashMap.put((Player) sender, args[0]);
+                sender.sendMessage("You have chosen Team" + args[0]);
                 return true;
             }
         }
@@ -100,6 +117,8 @@ public final class main extends JavaPlugin {
                 list.add("Cannon");
                 list.add("UltraDamage");
                 list.add("Warp");
+                list.add("Medusa");
+                list.add("Miner");
             }
         }
         return list;

@@ -8,23 +8,30 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Ghost extends AbilityTemplate{
 
+    private void addPotions(){
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,90000,10));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1009000 ,9000));
+    }
 
+    private void removePotions(){
+        player.removePotionEffect(PotionEffectType.BLINDNESS);
+        player.removePotionEffect(PotionEffectType.SLOW);
+    }
     public void activatedAbility() {
         if(!checkCooldown()){
             return;
         }
         player.setGameMode(GameMode.SPECTATOR);
         player.setFlySpeed(0.1f);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,90000,10));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1009000 ,9000));
+        addPotions();
+
 
         new BukkitRunnable() {
             @Override
             public void run() {
                 player.setGameMode(GameMode.SURVIVAL);
                 cooldownTime = System.currentTimeMillis();
-                player.removePotionEffect(PotionEffectType.BLINDNESS);
-                player.removePotionEffect(PotionEffectType.SLOW);
+                removePotions();
             }
         }.runTaskLater(this.plugin,130);
 

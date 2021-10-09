@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameHandler {
+    AirDrop airdrop = new AirDrop();
     private void teleportPlayers(main p){
         for(Player player : p.getServer().getOnlinePlayers()){
             int highestBlock = p.getServer().getWorld("world").getHighestBlockYAt(0,0);
@@ -28,6 +29,7 @@ public class GameHandler {
         p.getServer().getWorld("world").getWorldBorder().setCenter(0,0);
         p.getServer().getWorld("world").getWorldBorder().setSize(2500);
         p.getServer().getWorld("world").getWorldBorder().setWarningDistance(50);
+        p.getServer().getWorld("world").getWorldBorder().setWarningTime(20);
         teleportPlayers(p);
         resetPlayer(p);
         new BukkitRunnable() {
@@ -40,6 +42,7 @@ public class GameHandler {
                     shrinkWorldBorder(p.getServer().getWorld("world"),p.getServer().getWorld("world").getWorldBorder().getSize() - 100,120);
                 }
                 String worldBoderSizeString = Double.toString(p.getServer().getWorld("world").getWorldBorder().getSize());
+                airdrop.spawnAirDrop(p.getServer());
                 p.getServer().broadcastMessage("Worldborder: " + worldBoderSizeString + "\nHead To 0,0");
             }
         }.runTaskTimer(p,20,8400);
