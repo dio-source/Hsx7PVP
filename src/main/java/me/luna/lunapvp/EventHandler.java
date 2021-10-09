@@ -1,11 +1,13 @@
 package me.luna.lunapvp;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -17,15 +19,18 @@ public class EventHandler implements Listener {
     public boolean isPVPAllowed = false;
     @org.bukkit.event.EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e){
-        if(e.getEntity() instanceof Player && e.getDamager() instanceof Player || isPVPAllowed) {
-            if(((Player) e.getEntity()).getInventory().getItemInMainHand().getType() != Material.STICK){
+        if(e.getEntity() instanceof Player && e.getDamager() instanceof Player && isPVPAllowed) {
+            Player damager = (Player) e.getDamager();
+            Player reciever = (Player) e.getEntity();
+            if(damager.getInventory().getItemInMainHand().getType() != Material.STICK){
                 return;
             }
             try{
-                if(playerTeamHashMap.get( ((Player) e.getEntity())) == playerTeamHashMap.get((Player) e.getDamager())){
+                if(playerTeamHashMap.get(reciever) == playerTeamHashMap.get(damager)){
+                    playerAbilityHashMap.get(damager).playerHitAbility(reciever);
                     return;
                 }
-                playerAbilityHashMap.get((Player) e.getDamager()).playerHitAbility((Player) e.getEntity());
+                playerAbilityHashMap.get(damager).playerHitAbility(reciever);
             }
             catch (Exception exception){
                 System.out.println("Error in OnPlayerHIT");
@@ -45,12 +50,10 @@ public class EventHandler implements Listener {
     @org.bukkit.event.EventHandler
     public void onRightClick(PlayerInteractEvent e){
         if(e.getPlayer().getInventory().getItemInMainHand().getType() != Material.STICK){
-            System.out.println("TEsT123123");
             return;
         }
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
             this.playerAbilityHashMap.get(e.getPlayer()).activatedAbility();
-            System.out.println("TEsT1");
         }
     }
 
@@ -59,5 +62,11 @@ public class EventHandler implements Listener {
         if(e.getCause() == PlayerTeleportEvent.TeleportCause.SPECTATE){
             e.setCancelled(true);
         }
+    }
+
+    @org.bukkit.event.EventHandler
+    public void onDeath(PlayerDeathEvent e){
+        Player p = e.getEntity();
+        p.setGameMode(GameMode.SURVIVAL);
     }
 }

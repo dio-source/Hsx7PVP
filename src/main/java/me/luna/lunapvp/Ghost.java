@@ -32,8 +32,8 @@ public class Ghost extends AbilityTemplate{
         if(!checkCooldown()){
             return;
         }
-        attackedPlayer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 7, 3));
-        attackedPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 7, 3));
+        attackedPlayer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 140, 3));
+        attackedPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 140, 3));
         cooldownTime = System.currentTimeMillis();
     }
 }

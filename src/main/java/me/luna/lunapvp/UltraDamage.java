@@ -10,7 +10,7 @@ public class UltraDamage extends AbilityTemplate{
         if(!checkCooldown()){
             return;
         }
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,100,1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,100,0));
         cooldownTime = System.currentTimeMillis();
     }
 
