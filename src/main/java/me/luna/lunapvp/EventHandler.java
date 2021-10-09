@@ -36,7 +36,7 @@ public class EventHandler implements Listener {
                 System.out.println("Error in OnPlayerHIT");
             }
         }
-        else if(!isPVPAllowed){
+        else if(e.getEntity() instanceof Player && e.getDamager() instanceof Player && !isPVPAllowed){
             e.setCancelled(true);
         }
     }
@@ -67,6 +67,6 @@ public class EventHandler implements Listener {
     @org.bukkit.event.EventHandler
     public void onDeath(PlayerDeathEvent e){
         Player p = e.getEntity();
-        p.setGameMode(GameMode.SURVIVAL);
+        p.setGameMode(GameMode.SPECTATOR);
     }
 }

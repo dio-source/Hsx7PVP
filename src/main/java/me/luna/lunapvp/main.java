@@ -39,7 +39,7 @@ public final class main extends JavaPlugin {
                     eventHandler.isPVPAllowed = true;
                     getServer().broadcastMessage("PVP has been enabled");
                 }
-            }.runTaskLater(this,20);
+            }.runTaskLater(this,8400);
             return true;
         }
         if(sender instanceof Player){
@@ -73,6 +73,14 @@ public final class main extends JavaPlugin {
                     sender.sendMessage("You have picked UltraDamage");
                     return true;
                 }
+                else if(args[0].equalsIgnoreCase("Warp")){
+                    Warp warpObject = new Warp();
+                    warpObject.player = (Player) sender;
+                    this.playerAbilityHashMap.put((Player) sender, warpObject);
+                    warpObject.plugin = this;
+                    sender.sendMessage("You Have picked Warp");
+                    return true;
+                }
             }
             else if(label.equalsIgnoreCase("team") && args.length != 0){
                 this.playerTeamHashMap.put((Player) sender, args[0]);
@@ -91,6 +99,7 @@ public final class main extends JavaPlugin {
                 list.add("Ghost");
                 list.add("Cannon");
                 list.add("UltraDamage");
+                list.add("Warp");
             }
         }
         return list;

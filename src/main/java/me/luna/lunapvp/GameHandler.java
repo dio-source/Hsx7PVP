@@ -6,12 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameHandler {
-    boolean hasGameStarted = false;
-
-    private void startGame(main p){
-        this.hasGameStarted = true;
-        this.startGameTimer(p);
-    }
     private void teleportPlayers(main p){
         for(Player player : p.getServer().getOnlinePlayers()){
             int highestBlock = p.getServer().getWorld("world").getHighestBlockYAt(0,0);
@@ -23,13 +17,23 @@ public class GameHandler {
 
     }
 
+    private void resetPlayer(main plugin){
+        for(Player p : plugin.getServer().getOnlinePlayers()){
+            p.getInventory().clear();
+            p.setHealth(20);
+            p.setFoodLevel(25);
+        }
+    }
     protected void startGameTimer(main p){
         p.getServer().getWorld("world").getWorldBorder().setCenter(0,0);
         p.getServer().getWorld("world").getWorldBorder().setSize(2500);
+        p.getServer().getWorld("world").getWorldBorder().setWarningDistance(50);
+        teleportPlayers(p);
+        resetPlayer(p);
         new BukkitRunnable() {
             @Override
             public void run() {
-                if(!(p.getServer().getWorld("world").getWorldBorder().getSize() > 500)){
+                if((p.getServer().getWorld("world").getWorldBorder().getSize() > 500)){
                     shrinkWorldBorder(p.getServer().getWorld("world"),p.getServer().getWorld("world").getWorldBorder().getSize() / 2,120);
                 }
                 else{

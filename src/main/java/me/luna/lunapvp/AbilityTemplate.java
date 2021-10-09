@@ -5,8 +5,11 @@ import org.bukkit.entity.Player;
 public class AbilityTemplate {
     long cooldownTime = 0;
     Player player;
+    main plugin;
 
-
+    protected void setPlugin(main plugin){
+        this.plugin = plugin;
+    }
 
     public void activatedAbility(){
 

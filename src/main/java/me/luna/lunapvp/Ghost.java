@@ -7,7 +7,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Ghost extends AbilityTemplate{
-    private main plugin;
 
 
     public void activatedAbility() {
@@ -15,19 +14,22 @@ public class Ghost extends AbilityTemplate{
             return;
         }
         player.setGameMode(GameMode.SPECTATOR);
+        player.setFlySpeed(0.1f);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,90000,10));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1009000 ,9000));
+
         new BukkitRunnable() {
             @Override
             public void run() {
                 player.setGameMode(GameMode.SURVIVAL);
                 cooldownTime = System.currentTimeMillis();
+                player.removePotionEffect(PotionEffectType.BLINDNESS);
+                player.removePotionEffect(PotionEffectType.SLOW);
             }
-        }.runTaskLater(plugin,130);
+        }.runTaskLater(this.plugin,130);
 
     }
 
-    protected void setPlugin(main plugin){
-        this.plugin = plugin;
-    }
     public void playerHitAbility(Player attackedPlayer) {
         if(!checkCooldown()){
             return;
