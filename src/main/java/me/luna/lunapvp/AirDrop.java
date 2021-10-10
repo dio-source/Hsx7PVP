@@ -42,7 +42,7 @@ public class AirDrop {
     public void spawnAirDrop(Server s){
         Location chestLocation = getRandomLocation();
         chestLocation.getBlock().setType(Material.CHEST);
-        Chest block = (Chest) chestLocation.getBlock();
+        Chest block = (Chest) chestLocation.getBlock().getState();
         for(int i = 0; i < 3; i++) {
             block.getBlockInventory().addItem(generateRandomItem());
         }

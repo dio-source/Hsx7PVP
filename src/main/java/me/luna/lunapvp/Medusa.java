@@ -3,6 +3,8 @@ package me.luna.lunapvp;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Medusa extends AbilityTemplate{
 
@@ -23,6 +25,10 @@ public class Medusa extends AbilityTemplate{
 
     @Override
     public void activatedAbility() {
-        player.getEyeLocation().getBlock().setType(Material.STONE);
+        if(!checkCooldown()){
+            return;
+        }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60,1000));
+        cooldownTime = System.currentTimeMillis();
     }
 }

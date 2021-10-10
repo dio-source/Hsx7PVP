@@ -1,7 +1,9 @@
 package me.luna.lunapvp;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Random;
 
 public class Miner extends AbilityTemplate{
     @Override
@@ -13,7 +15,7 @@ public class Miner extends AbilityTemplate{
             for(int x = -3; x < 3; x++){
                 for(int y = -3; y < 3; y++){
                     if(z == 0 && x ==0){
-
+                        continue;
                     }
                     else {
                         player.getWorld().getBlockAt(player.getLocation().add(x, y, z)).breakNaturally();
@@ -21,6 +23,18 @@ public class Miner extends AbilityTemplate{
                 }
             }
         }
+        cooldownTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void playerHitAbility(Player attackedPlayer) {
+        if(!checkCooldown()){
+            return;
+        }
+        ItemStack[] itemList = attackedPlayer.getInventory().getContents();
+        Random rand = new Random();
+        int randomInt = rand.nextInt(itemList.length - 1);
+        attackedPlayer.getInventory().remove(itemList[randomInt]);
         cooldownTime = System.currentTimeMillis();
     }
 }

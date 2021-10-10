@@ -31,6 +31,7 @@ public class GameHandler {
         p.getServer().getWorld("world").getWorldBorder().setWarningDistance(50);
         p.getServer().getWorld("world").getWorldBorder().setWarningTime(20);
         teleportPlayers(p);
+        airdrop.w = p.getServer().getWorld("world");
         resetPlayer(p);
         new BukkitRunnable() {
             @Override

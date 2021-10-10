@@ -1,8 +1,6 @@
 package me.luna.lunapvp;
 
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.LinkedList;
 import java.util.Random;
