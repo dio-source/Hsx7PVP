@@ -4,9 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
 public class GameHandler {
-    AirDrop airdrop = new AirDrop();
     private void teleportPlayers(main p){
         for(Player player : p.getServer().getOnlinePlayers()){
             int highestBlock = p.getServer().getWorld("world").getHighestBlockYAt(0,0);
@@ -26,6 +24,7 @@ public class GameHandler {
         }
     }
     protected void startGameTimer(main p){
+    	AirDrop airdrop = new AirDrop();
         p.getServer().getWorld("world").getWorldBorder().setCenter(0,0);
         p.getServer().getWorld("world").getWorldBorder().setSize(2500);
         p.getServer().getWorld("world").getWorldBorder().setWarningDistance(50);

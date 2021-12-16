@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.HashMap;
@@ -17,6 +18,12 @@ public class EventHandler implements Listener {
     private HashMap<Player,AbilityTemplate> playerAbilityHashMap;
     private HashMap<Player,String> playerTeamHashMap;
     public boolean isPVPAllowed = false;
+    
+    @org.bukkit.event.EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+    	e.getPlayer().sendMessage("Use /team to select team \n use /ability to choose an ability");
+    	this.playerAbilityHashMap.put(e.getPlayer(), new Gravity());
+    }
     @org.bukkit.event.EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e){
         if(e.getEntity() instanceof Player && e.getDamager() instanceof Player && isPVPAllowed) {

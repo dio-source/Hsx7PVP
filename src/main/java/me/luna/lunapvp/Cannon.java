@@ -19,7 +19,7 @@ public class Cannon extends AbilityTemplate{
         if(!checkCooldown()){
             return;
         }
-        player.getWorld().createExplosion(player.getLocation().add(player.getFacing().getDirection().multiply(5)),5,true);
+        player.getWorld().createExplosion(player.getLocation().add(player.getFacing().getDirection().multiply(5)),2.5f,true);
         cooldownTime = System.currentTimeMillis();
     }
 }

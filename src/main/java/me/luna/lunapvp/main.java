@@ -26,13 +26,14 @@ public final class main extends JavaPlugin {
 
     public void onDisable() {
     }
-
+    
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender.isOp() && label.equalsIgnoreCase("start")){
             gameHandler.startGameTimer(this);
             eventHandler.updateAbilityList(playerAbilityHashMap);
             eventHandler.updateTeamList(playerTeamHashMap);
+            this.getServer().broadcastMessage("Use Wooden sticks to activate ability, \n dependent on your class it may be left click, right click or PlayerHit");
             new BukkitRunnable() {
                 @Override
                 public void run() {
