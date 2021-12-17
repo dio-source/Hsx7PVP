@@ -5,6 +5,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class UltraDamage extends AbilityTemplate{
+	public UltraDamage() {
+		this.classID = 2;
+		this.className = "UltraDamage";
+	}
     @Override
     public void activatedAbility() {
         if(!checkCooldown()){

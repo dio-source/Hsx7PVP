@@ -5,7 +5,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Gravity extends AbilityTemplate{
-
+	public Gravity() {
+		this.className = "Gravity";
+		this.classID = 5;
+	}
     public void activatedAbility() {
         if(!checkCooldown()){
             return;

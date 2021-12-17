@@ -7,7 +7,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Ghost extends AbilityTemplate{
-
+	public Ghost() {
+		this.classID = 6;
+		this.className = "Ghost";
+	}
     private void addPotions(){
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,90000,10));
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1009000 ,9000));

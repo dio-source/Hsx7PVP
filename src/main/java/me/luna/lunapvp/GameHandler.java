@@ -23,6 +23,7 @@ public class GameHandler {
             p.setFoodLevel(25);
         }
     }
+    
     protected void startGameTimer(main p){
     	AirDrop airdrop = new AirDrop();
         p.getServer().getWorld("world").getWorldBorder().setCenter(0,0);

@@ -6,6 +6,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 public class Miner extends AbilityTemplate{
+	
+	public Miner() {
+		this.className = "Miner";
+		this.classID = 3;
+	}
     @Override
     public void activatedAbility() {
         if(!checkCooldown()){

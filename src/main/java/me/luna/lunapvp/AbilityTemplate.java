@@ -5,11 +5,11 @@ import org.bukkit.entity.Player;
 public class AbilityTemplate {
     long cooldownTime = 0;
     Player player;
+    String className = "";
     main plugin;
+    int classID = 0;
 
-    protected void setPlugin(main plugin){
-        this.plugin = plugin;
-    }
+
 
     public void activatedAbility(){
 
@@ -18,7 +18,7 @@ public class AbilityTemplate {
     public void playerHitAbility(Player attackedPlayer){
 
     }
-
+    
     protected boolean checkCooldown(){
 
         System.out.println(System.currentTimeMillis() - cooldownTime);

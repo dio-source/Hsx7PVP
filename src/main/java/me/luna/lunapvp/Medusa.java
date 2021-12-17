@@ -7,7 +7,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Medusa extends AbilityTemplate{
-
+	public Medusa() {
+		this.classID = 4;
+		this.className = "Medusa";
+	}
     public void playerHitAbility(Player attackedPlayer) {
         if(!checkCooldown()){
             return;

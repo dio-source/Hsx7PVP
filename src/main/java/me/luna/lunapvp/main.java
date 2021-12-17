@@ -8,17 +8,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class main extends JavaPlugin {
     private EventHandler eventHandler;
     private GameHandler gameHandler;
-    private HashMap<Player, AbilityTemplate> playerAbilityHashMap;
-    private HashMap<Player, String> playerTeamHashMap;
+    private LinkedList<playerInstance> playerInstanceList = new LinkedList<playerInstance>();
 
     public void onEnable() {
-        playerAbilityHashMap = new HashMap<>();
-        playerTeamHashMap = new HashMap<>();
+        playerInstanceList = new LinkedList<>();
         eventHandler = new EventHandler();
         gameHandler = new GameHandler();
         this.getServer().getPluginManager().registerEvents(eventHandler, this);
@@ -27,12 +26,18 @@ public final class main extends JavaPlugin {
     public void onDisable() {
     }
     
+    private void chooseClass(Player sender, AbilityTemplate playerClass) {
+    	playerInstance p = new playerInstance();
+    	p.updateClassDetails(sender, playerClass);
+    	this.playerInstanceList.add(p);
+        sender.sendMessage("You have picked: " + p.getAbility().className);
+    }
+    
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender.isOp() && label.equalsIgnoreCase("start")){
             gameHandler.startGameTimer(this);
-            eventHandler.updateAbilityList(playerAbilityHashMap);
-            eventHandler.updateTeamList(playerTeamHashMap);
+            eventHandler.updateAbilityList(playerInstanceList);
             this.getServer().broadcastMessage("Use Wooden sticks to activate ability, \n dependent on your class it may be left click, right click or PlayerHit");
             new BukkitRunnable() {
                 @Override
@@ -43,68 +48,37 @@ public final class main extends JavaPlugin {
             }.runTaskLater(this,8400);
             return true;
         }
-        if(sender instanceof Player){
-            if(label.equalsIgnoreCase("ability") && args.length != 0){
+            if(label.equalsIgnoreCase("ability") && args.length != 0 && sender instanceof Player){
                 if(args[0].equalsIgnoreCase("Gravity")){
-                    Gravity newObjectGravity = new Gravity();
-                    newObjectGravity.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, newObjectGravity);
-                    sender.sendMessage("You have picked Gravity");
-                    return true;
+                	chooseClass((Player) sender, new Gravity());
                 }
                 else if(args[0].equalsIgnoreCase("Cannon")){
-                    Cannon cannonObject = new Cannon();
-                    cannonObject.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, cannonObject);
-                    sender.sendMessage("You have picked Cannon");
-                    return true;
+                	chooseClass((Player) sender, new Cannon());
                 }
                 else if(args[0].equalsIgnoreCase("Ghost")){
-                    Ghost ghostObject = new Ghost();
-                    ghostObject.player = (Player) sender;
-                    ghostObject.setPlugin(this);
-                    this.playerAbilityHashMap.put((Player) sender, ghostObject);
-                    sender.sendMessage("You have picked Ghost");
-                    return true;
+                	chooseClass((Player) sender, new Ghost());
                 }
                 else if(args[0].equalsIgnoreCase("UltraDamage")){
-                    UltraDamage ulatraDamageObject = new UltraDamage();
-                    ulatraDamageObject.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, ulatraDamageObject);
-                    sender.sendMessage("You have picked UltraDamage");
-                    return true;
+                	chooseClass((Player) sender, new UltraDamage());
                 }
                 else if(args[0].equalsIgnoreCase("Warp")){
-                    Warp warpObject = new Warp();
-                    warpObject.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, warpObject);
-                    warpObject.plugin = this;
-                    sender.sendMessage("You Have picked Warp");
-                    return true;
+                	chooseClass((Player) sender, new Warp());
                 }
                 else if(args[0].equalsIgnoreCase("Medusa")){
-                    Medusa medusaObject = new Medusa();
-                    medusaObject.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, medusaObject);
-                    medusaObject.plugin = this;
-                    sender.sendMessage("You Have picked Medusa");
-                    return true;
+                	chooseClass((Player) sender, new Medusa());
                 }
                 else if(args[0].equalsIgnoreCase("Miner")){
-                    Miner minerObject = new Miner();
-                    minerObject.player = (Player) sender;
-                    this.playerAbilityHashMap.put((Player) sender, minerObject);
-                    minerObject.plugin = this;
-                    sender.sendMessage("You Have picked Medusa");
-                    return true;
+                	chooseClass((Player) sender, new Miner());
                 }
+                else {
+                	return false;
+                }
+                return true;
             }
-            else if(label.equalsIgnoreCase("team") && args.length != 0){
-                this.playerTeamHashMap.put((Player) sender, args[0]);
+            else if(label.equalsIgnoreCase("team") && args.length != 0 && sender instanceof Player){
                 sender.sendMessage("You have chosen Team" + args[0]);
                 return true;
             }
-        }
         return false;
     }
 

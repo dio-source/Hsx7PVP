@@ -4,6 +4,10 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class Cannon extends AbilityTemplate{
+	public Cannon() {
+		this.classID = 7;
+		this.className = "Cannon";
+	}
     @Override
     public void playerHitAbility(Player attackedPlayer) {
         if(!checkCooldown()){

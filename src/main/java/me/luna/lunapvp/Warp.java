@@ -6,6 +6,11 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Warp extends AbilityTemplate{
+	
+	public Warp() {
+		this.classID = 1;
+		this.className = "warp";
+	}
     @Override
     public void playerHitAbility(Player attackedPlayer) {
         if(!checkCooldown()){
