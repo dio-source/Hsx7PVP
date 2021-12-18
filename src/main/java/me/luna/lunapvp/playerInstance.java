@@ -1,12 +1,16 @@
 package me.luna.lunapvp;
 
 import java.util.Random;
+import java.util.UUID;
+
 import org.bukkit.entity.Player;
+
+import me.luna.playerClasses.AbilityTemplate;
 
 public class playerInstance {
 	private AbilityTemplate ability;
 	private boolean playerDead = false;
-	private Player inGamePlayer;
+	private UUID playerUUID;
 	private String teamID = "";
 	
 	protected playerInstance() {
@@ -19,15 +23,20 @@ public class playerInstance {
 	}
 	protected void updateClassDetails(Player p, AbilityTemplate ability) {
 		this.ability = ability;
-		this.ability.player = p;
-		this.inGamePlayer = p;
+		this.ability.setPlayer(p);
+		this.playerUUID = p.getUniqueId();
 	}
 	protected boolean isPlayerDead() {
 		return this.playerDead;
 	}
-	
-	protected Player getPlayer() {
-		return this.inGamePlayer;
+	protected String getTeamID() {
+		return this.teamID;
+	}
+	protected void setTeamID(String team) {
+		this.teamID = team;
+	}
+	protected UUID getPlayer() {
+		return this.playerUUID;
 	}
 	
 	protected AbilityTemplate getAbility() {

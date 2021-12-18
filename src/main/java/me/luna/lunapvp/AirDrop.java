@@ -21,6 +21,9 @@ public class AirDrop {
         airDropItemList.add(Material.GOLDEN_CARROT);
         airDropItemList.add(Material.SHIELD);
         airDropItemList.add(Material.ENDER_PEARL);
+        airDropItemList.add(Material.BREWING_STAND);
+        airDropItemList.add(Material.BLAZE_POWDER);
+        airDropItemList.add(Material.NETHER_WART);
     }
     private int generateLimitedInt(int limit){
         Random rand = new Random();
@@ -28,8 +31,8 @@ public class AirDrop {
     }
     private Location getRandomLocation(){
         Random rand = new Random();
-        int xCoordinate = generateLimitedInt(1000);
-        int zCoordinate = generateLimitedInt(1000);
+        int xCoordinate = generateLimitedInt(500);
+        int zCoordinate = generateLimitedInt(500);
         Location loc = new Location(w, xCoordinate, w.getHighestBlockYAt(xCoordinate,zCoordinate) + 1, zCoordinate);
         return loc;
     }
@@ -43,10 +46,10 @@ public class AirDrop {
         Location chestLocation = getRandomLocation();
         chestLocation.getBlock().setType(Material.CHEST);
         Chest block = (Chest) chestLocation.getBlock().getState();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 5; i++) {
             block.getBlockInventory().addItem(generateRandomItem());
         }
-        s.broadcastMessage("Airdrop has been droppped at" + Integer.toString(chestLocation.getBlockX()) + ", " + Integer.toString(chestLocation.getBlockZ()));
+        s.broadcastMessage("Airdrop has been droppped at: " + Integer.toString(chestLocation.getBlockX()) + ", " + Integer.toString(chestLocation.getBlockZ()));
     }
 
 

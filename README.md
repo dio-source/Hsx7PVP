@@ -1,8 +1,8 @@
 # Luna PVP
 
 ## Commands
-- /ability: choose ability (Select before game start)
-- /team: change team (Select Before Game Start)
+- /ability [Ability]: choose ability (Select before game start)
+- /team [Team ID]: change team (Select Before Game Start)
 
 ## Activating Abilities:
 - Right Click Air / Block
@@ -16,4 +16,3 @@
 - Ghost: Go into spectator mode for 3 seconds, given Slowness and Blindness
 - Medusa: Generate a 3x3x3 area on where you stand
 - Warp Teleport Player on Hit and Teleport to random location when right click
-

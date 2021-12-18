@@ -1,5 +1,5 @@
 name: LunaPVP
-version: '1.0'
+version: '3.0'
 main: me.luna.lunapvp.main
 api-version: 1.17
 authors: [Luna]

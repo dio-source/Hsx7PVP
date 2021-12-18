@@ -1,4 +1,4 @@
-package me.luna.lunapvp;
+package me.luna.playerClasses;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

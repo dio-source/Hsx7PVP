@@ -2,6 +2,7 @@ package me.luna.lunapvp;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
@@ -18,8 +19,27 @@ import java.util.LinkedList;
 public class EventHandler implements Listener {
     private LinkedList<playerInstance> playerList = new LinkedList<playerInstance>();
     public boolean isPVPAllowed = false;
-    
-
+    private main plugin;
+    private Server server;
+    public EventHandler(main m) {
+    	this.plugin = m;
+    	this.server = m.getServer();
+    }
+    private void setPlayerDeath(Player p) {
+    	for(playerInstance playerObject : playerList) {
+    		if(server.getPlayer(playerObject.getPlayer()) == p) {
+    			playerObject.setPlayerDeathStatus(true);
+    		}
+    	}
+    }
+    private boolean checkIfPlayeIsDead(Player p) {
+    	for(playerInstance playerObject : playerList) {
+    		if(server.getPlayer(playerObject.getPlayer()) == p && playerObject.isPlayerDead()) {
+    			return true;
+    		}
+    	}
+		return false;
+    }
     
     private boolean isPlayerHoldingStick (Player e) {
     	if(e.getInventory().getItemInMainHand().getType() == Material.STICK) {
@@ -44,7 +64,7 @@ public class EventHandler implements Listener {
             Player reciever = (Player) e.getEntity();
             if(!isPlayerHoldingStick(damager) || !isAttackingPlayerValid(damager, reciever))return;
             for(playerInstance playerClass : playerList) {
-            	if(playerClass.getPlayer() == e.getDamager()) {
+            	if(server.getPlayer(playerClass.getPlayer()) == e.getDamager()) {
             		playerClass.getAbility().playerHitAbility(reciever);
             		return;
             	}
@@ -60,13 +80,10 @@ public class EventHandler implements Listener {
     
     @org.bukkit.event.EventHandler
     public void onRightClick(PlayerInteractEvent e){
-    	System.out.println("OK12");
         if(isPlayerHoldingStick(e.getPlayer()) && isPlayerHoldingStick(e.getPlayer()) && isActionRightClick(e)) {
-        	System.out.println("OK1");
         	for(playerInstance playerClass : playerList) {
-        		if(playerClass.getPlayer() == e.getPlayer()) {
+        		if(server.getPlayer(playerClass.getPlayer()) == e.getPlayer()) {
         			playerClass.getAbility().activatedAbility();
-        			System.out.println("OK");
         			return;
         		}
         	}
@@ -76,7 +93,7 @@ public class EventHandler implements Listener {
 
     @org.bukkit.event.EventHandler
     public void teleportPreventionEvent(PlayerTeleportEvent e){
-        if(e.getCause() == PlayerTeleportEvent.TeleportCause.SPECTATE){
+        if(e.getCause() == PlayerTeleportEvent.TeleportCause.SPECTATE && !checkIfPlayeIsDead(e.getPlayer())){
             e.setCancelled(true);
         }
     }
@@ -84,7 +101,10 @@ public class EventHandler implements Listener {
     @org.bukkit.event.EventHandler
     public void onDeath(PlayerDeathEvent e){
         Player p = e.getEntity();
-        p.setGameMode(GameMode.SPECTATOR);
+        if(plugin.hasGameStarted) {
+	        setPlayerDeath(p);
+	        p.setGameMode(GameMode.SPECTATOR);
+        }
     }
     
     @org.bukkit.event.EventHandler
