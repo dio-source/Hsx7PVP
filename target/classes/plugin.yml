@@ -1,8 +1,8 @@
-name: LunaPVP
-version: '3.0'
-main: me.luna.lunapvp.main
+name: Hsx7PvP
+version: '${project.version}'
+main: xyz.tomzog.lunapvp.main
 api-version: 1.17
-authors: [Luna]
+authors: [Hsx7]
 commands:
   start:
     usage: "Usage: /start"
