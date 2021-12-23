@@ -1,5 +1,6 @@
 package xyz.tomzog.playerClasses;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import xyz.tomzog.lunapvp.main;
@@ -19,12 +20,12 @@ public class AbilityTemplate {
 
     }
 
-    public void cookedMeat() {
+    protected boolean isPlayerHoldingStick() {
+        if (player.getInventory().getItemInMainHand().getType() == Material.STICK) {
+            return true;
+        }
+        return false;
     }
-
-    public void rawMeat() {
-    }
-
     public void playerHitAbility(Player attackedPlayer){
 
     }

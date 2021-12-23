@@ -10,7 +10,7 @@ public class Cannon extends AbilityTemplate{
     }
     @Override
     public void playerHitAbility(Player attackedPlayer) {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         Location playerLocation = attackedPlayer.getLocation();
@@ -20,7 +20,7 @@ public class Cannon extends AbilityTemplate{
 
     @Override
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         player.getWorld().createExplosion(player.getLocation().add(player.getFacing().getDirection().multiply(5)),2.5f,true);

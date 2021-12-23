@@ -82,29 +82,5 @@ public class GameHandler {
 
 
         }, 26400);
-        //26400l
-
-
     }
 }
-
-/*            for(Player player : server.getOnlinePlayers()) {
-                Random RanX = new Random(50);
-                Random RanZ = new Random(50);
-                int randomX = RanX.nextInt();
-                int randomZ = RanZ.nextInt();
-                Location loc = null;
-                for (int y = 30; y < 100; y++) {
-                    loc = new Location(server.getWorld("world_the_end"), randomX, y, randomZ);
-                    if (loc.getBlock() == null && loc.add(0,1,0).getBlock() == null) {
-                        player.teleport(loc);
-                    } else {
-                        if (loc.getBlock().getType() == Material.AIR && loc.add(0,1,0).getBlock().getType() == Material.AIR) {
-                            player.teleport(loc);
-                        }
-                    }
-                    break;
-                }
-                //int highestBlock = server.getWorld("End").getHighestBlockYAt(0, 0);
-                //player.teleport(new Location(player.getWorld(), 50, highestBlock + 1, 0));
-*/

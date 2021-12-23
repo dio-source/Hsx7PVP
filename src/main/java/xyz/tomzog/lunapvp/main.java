@@ -49,7 +49,6 @@ public final class main extends JavaPlugin {
                     getServer().broadcastMessage("PVP has been enabled \nYou will teleport to the End in 15 minutes");
                 }
             }.runTaskLater(this,8400);
-            //8400
             return true;
         }
         if(label.equalsIgnoreCase("ability") && args.length != 0 && sender instanceof Player && !hasGameStarted){

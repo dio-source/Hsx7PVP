@@ -13,7 +13,7 @@ public class Warp extends AbilityTemplate{
     }
     @Override
     public void playerHitAbility(Player attackedPlayer) {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !this.isPlayerHoldingStick()){
             return;
         }
         attackedPlayer.teleport(attackedPlayer.getLocation().add(0,-25,0));
@@ -22,7 +22,7 @@ public class Warp extends AbilityTemplate{
 
     @Override
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !this.isPlayerHoldingStick()){
             return;
         }
         Random rand = new Random();

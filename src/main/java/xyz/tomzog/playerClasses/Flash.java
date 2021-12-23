@@ -14,7 +14,7 @@ public class Flash extends AbilityTemplate {
 
     @Override
     public void playerHitAbility(Player attackedPlayer) {
-        if (!checkCooldown()) {
+        if (!checkCooldown() || !isPlayerHoldingStick())  {
             return;
         }
         attackedPlayer.setWalkSpeed(0f);
@@ -33,7 +33,7 @@ public class Flash extends AbilityTemplate {
     }
 
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,160,2));

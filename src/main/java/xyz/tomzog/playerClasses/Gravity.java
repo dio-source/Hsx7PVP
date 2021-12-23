@@ -10,7 +10,7 @@ public class Gravity extends AbilityTemplate{
         this.classID = 5;
     }
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         player.teleport(player.getLocation().add(0,25,0));
@@ -20,7 +20,7 @@ public class Gravity extends AbilityTemplate{
     }
 
     public void playerHitAbility(Player attackedPlayer) {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         attackedPlayer.teleport(attackedPlayer.getLocation().add(0,25,0));

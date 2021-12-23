@@ -47,12 +47,7 @@ public class EventHandler implements Listener {
         return false;
     }
 
-    private boolean isPlayerHoldingStick(Player e) {
-        if (e.getInventory().getItemInMainHand().getType() == Material.STICK) {
-            return true;
-        }
-        return false;
-    }
+
 
     private boolean isActionRightClick(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) return true;
@@ -69,7 +64,7 @@ public class EventHandler implements Listener {
         if (e.getEntity() instanceof Player && e.getDamager() instanceof Player && isPVPAllowed) {
             Player damager = (Player) e.getDamager();
             Player reciever = (Player) e.getEntity();
-            if (!isPlayerHoldingStick(damager) || !isAttackingPlayerValid(damager, reciever)) return;
+            if (!isAttackingPlayerValid(damager, reciever)) return;
             for (playerInstance playerClass : playerList) {
                 if (server.getPlayer(playerClass.getPlayer()) == e.getDamager()) {
                     playerClass.getAbility().playerHitAbility(reciever);
@@ -87,7 +82,7 @@ public class EventHandler implements Listener {
 
     @org.bukkit.event.EventHandler
     public void onRightClick(PlayerInteractEvent e) {
-        if (isPlayerHoldingStick(e.getPlayer()) && isPlayerHoldingStick(e.getPlayer()) && isActionRightClick(e)) {
+        if (isActionRightClick(e)) {
             for (playerInstance playerClass : playerList) {
                 if (server.getPlayer(playerClass.getPlayer()) == e.getPlayer()) {
                     playerClass.getAbility().activatedAbility();
@@ -117,43 +112,4 @@ public class EventHandler implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.getPlayer().sendMessage("Use /team to select team \nUse /ability to choose an ability");
     }
-
-    @org.bukkit.event.EventHandler
-    public void onRightClickCookedMeat(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        ItemStack item = player.getInventory().getItemInMainHand();
-
-        if (item.getType() == Material.COOKED_BEEF || item.getType() == Material.COOKED_CHICKEN || item.getType() == Material.COOKED_MUTTON || item.getType() == Material.COOKED_PORKCHOP || item.getType() == Material.COOKED_COD || item.getType() == Material.COOKED_SALMON || item.getType() == Material.COOKED_RABBIT) {
-            if (item.getAmount() > 1) {
-                if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    for (playerInstance playerClass : playerList) {
-                        if (server.getPlayer(playerClass.getPlayer()) == event.getPlayer()) {
-                            playerClass.getAbility().cookedMeat();
-                            return;
-                        }
-                    }
-                } else return;
-            }
-        }
-    }
-
-    @org.bukkit.event.EventHandler
-    public void onRightClickRawMeat(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        ItemStack item = player.getInventory().getItemInMainHand();
-
-        if (item.getType() == Material.BEEF || item.getType() == Material.CHICKEN || item.getType() == Material.MUTTON || item.getType() == Material.PORKCHOP || item.getType() == Material.COD || item.getType() == Material.SALMON || item.getType() == Material.RABBIT) {
-            if (item.getAmount() > 1) {
-                if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    for (playerInstance playerClass : playerList) {
-                        if (server.getPlayer(playerClass.getPlayer()) == event.getPlayer()) {
-                            playerClass.getAbility().rawMeat();
-                            return;
-                        }
-                    }
-                } else return;
-            }
-        }
-    }
-
 }

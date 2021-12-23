@@ -21,7 +21,7 @@ public class Ghost extends AbilityTemplate{
         player.removePotionEffect(PotionEffectType.SLOW);
     }
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         player.setGameMode(GameMode.SPECTATOR);
@@ -41,7 +41,7 @@ public class Ghost extends AbilityTemplate{
     }
 
     public void playerHitAbility(Player attackedPlayer) {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         attackedPlayer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 140, 3));

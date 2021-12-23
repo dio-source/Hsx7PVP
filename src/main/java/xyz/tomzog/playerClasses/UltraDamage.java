@@ -11,6 +11,7 @@ public class UltraDamage extends AbilityTemplate{
     }
     @Override
     public void activatedAbility() {
+        this.isPlayerHoldingStick();
         if(!checkCooldown()){
             return;
         }

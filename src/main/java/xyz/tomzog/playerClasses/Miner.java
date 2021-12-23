@@ -13,7 +13,7 @@ public class Miner extends AbilityTemplate{
     }
     @Override
     public void activatedAbility() {
-        if(!checkCooldown()){
+        if(!checkCooldown() ||  !isPlayerHoldingStick()){
             return;
         }
         for(int z = -3; z <3; z++){
@@ -33,7 +33,7 @@ public class Miner extends AbilityTemplate{
 
     @Override
     public void playerHitAbility(Player attackedPlayer) {
-        if(!checkCooldown()){
+        if(!checkCooldown() || !isPlayerHoldingStick()){
             return;
         }
         ItemStack[] itemList = attackedPlayer.getInventory().getContents();
